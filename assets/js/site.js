@@ -119,6 +119,10 @@ document.querySelectorAll('.filter').forEach((button) => {
   });
 });
 
+document.querySelectorAll('.work-video').forEach((video) => {
+  video.volume = 0.5;
+});
+
 document.querySelectorAll('.yt-embed').forEach((box) => {
   const playButton = box.querySelector('.yt-play');
   playButton?.addEventListener('click', () => {
