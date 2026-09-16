@@ -119,6 +119,21 @@ document.querySelectorAll('.filter').forEach((button) => {
   });
 });
 
+document.querySelectorAll('.yt-embed').forEach((box) => {
+  const playButton = box.querySelector('.yt-play');
+  playButton?.addEventListener('click', () => {
+    const id = box.dataset.ytId;
+    const start = box.dataset.ytStart ? `&start=${box.dataset.ytStart}` : '';
+    const iframe = document.createElement('iframe');
+    iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0${start}`;
+    iframe.title = 'YouTube video player';
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    iframe.allowFullscreen = true;
+    box.innerHTML = '';
+    box.appendChild(iframe);
+  });
+});
+
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
