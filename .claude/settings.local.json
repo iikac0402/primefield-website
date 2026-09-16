@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-Command node -ErrorAction SilentlyContinue)",
+      "PowerShell(Get-Command npx -ErrorAction SilentlyContinue)",
+      "PowerShell(Get-Command python -ErrorAction SilentlyContinue)",
+      "Bash(taskkill //PID 29208 //F)",
+      "Bash(python -c \"from PIL import Image; im = Image.open\\(r'g:\\\\PRIMEFIELD\\\\Portfolio sajt\\\\Primefield-sajt-v1 \\(1\\)\\\\primefield-site\\\\assets\\\\media\\\\menu.png'\\); print\\(im.size, im.mode\\)\")"
+    ]
+  }
+}
