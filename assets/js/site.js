@@ -92,6 +92,15 @@ menuButton?.addEventListener('click', () => {
   menuButton.setAttribute('aria-label', open ? 'Zatvori meni' : 'Otvori meni');
 });
 
+nav?.querySelectorAll('a').forEach((link) => {
+  link.addEventListener('click', () => {
+    nav.classList.remove('open');
+    document.body.classList.remove('menu-open');
+    menuButton?.setAttribute('aria-expanded', 'false');
+    menuButton?.setAttribute('aria-label', 'Otvori meni');
+  });
+});
+
 const currentPath = location.pathname.replace(/index\.html$/, '');
 document.querySelectorAll('.nav a').forEach((link) => {
   const href = new URL(link.href).pathname;

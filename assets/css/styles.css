@@ -316,6 +316,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .contact-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(3rem, 8vw, 8rem); }
 .contact-links { display: grid; gap: .5rem; margin-top: 2rem; }
 .contact-links a, .contact-links span { color: #d7d7d2; }
+.link-icon { display: inline-block; width: 14px; height: 14px; object-fit: contain; margin-left: .4rem; vertical-align: -1px; }
 .form { display: grid; gap: 1rem; }
 .field { display: grid; gap: .45rem; }
 .field label { color: #c4c4bf; font-size: .88rem; }
