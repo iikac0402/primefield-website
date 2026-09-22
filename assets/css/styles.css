@@ -200,7 +200,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .work-card.wide { grid-column: span 8; }
 .work-card.small { grid-column: span 4; }
 .work-visual { position: relative; aspect-ratio: 16 / 9; overflow: hidden; border: 1px solid var(--line); background: #111; }
-.work-visual::after { content: ""; position: absolute; inset: 0; background: linear-gradient(145deg, transparent 40%, rgba(255,255,255,.08)); }
+.work-visual::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(145deg, transparent 40%, rgba(255,255,255,.08)); }
 .visual-one { background: linear-gradient(135deg, #0b0b0b, #242424 48%, #101010); }
 .visual-two { background: radial-gradient(circle at 25% 55%, #393939, #121212 42%, #080808 78%); }
 .visual-three { background: linear-gradient(35deg, #080808 0 42%, #2d2d2d 43% 56%, #111 57%); }
