@@ -3,7 +3,7 @@
   <url><loc>https://TVOJ-DOMEN.RS/</loc></url>
   <url><loc>https://TVOJ-DOMEN.RS/content-produkcija/</loc></url>
   <url><loc>https://TVOJ-DOMEN.RS/video-produkcija/</loc></url>
-  <url><loc>https://TVOJ-DOMEN.RS/podcast-produkcija/</loc></url>
+  <!-- SKRIVENO: <url><loc>https://TVOJ-DOMEN.RS/podcast-produkcija/</loc></url> -->
   <url><loc>https://TVOJ-DOMEN.RS/video-montaza/</loc></url>
   <url><loc>https://TVOJ-DOMEN.RS/kreativna-produkcija/</loc></url>
   <url><loc>https://TVOJ-DOMEN.RS/radovi/</loc></url>

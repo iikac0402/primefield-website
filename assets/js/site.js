@@ -35,7 +35,7 @@ function footerMarkup() {
       <div class="container">
         <div class="footer-top">
           <div><a class="logo footer-logo" href="/" aria-label="Primefield početna"><img class="logo-image" src="/assets/media/logo.png" alt="Primefield" width="1200" height="300"></a><p class="muted">Video produkcija za biznise, brendove i kreatore u Beogradu.</p></div>
-          <div class="footer-links"><strong>Usluge</strong><a href="/content-produkcija/">Content produkcija</a><a href="/video-produkcija/">Video produkcija</a><a href="/podcast-produkcija/">Podcast produkcija</a><a href="/video-montaza/">Video montaža</a><a href="/kreativna-produkcija/">Motion i VFX</a></div>
+          <div class="footer-links"><strong>Usluge</strong><a href="/content-produkcija/">Content produkcija</a><a href="/video-produkcija/">Video produkcija</a><!-- SKRIVENO: <a href="/podcast-produkcija/">Podcast produkcija</a> --><a href="/video-montaza/">Video montaža</a><a href="/kreativna-produkcija/">Motion i VFX</a></div>
           <div class="footer-links"><strong>Kontakt</strong><a href="${config.instagramUrl || '#'}" target="_blank" rel="noreferrer">${config.instagramLabel || '@theprimefield'}</a><a href="/kontakt/">Zatražite ponudu</a></div>
         </div>
         <div class="footer-bottom"><span>© ${year} Primefield. Sva prava zadržana.</span><a href="/politika-privatnosti.html">Politika privatnosti</a></div>
