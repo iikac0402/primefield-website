@@ -340,7 +340,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   border-top: 1px solid var(--line);
   background-image:
     linear-gradient(rgba(8, 8, 8, .55), rgba(8, 8, 8, .55)),
-    url("/assets/media/footerbannner.png");
+    url("/assets/media/footer-banner.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -542,7 +542,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
       rgba(0, 0, 0, 0.62) 45%,
       rgba(0, 0, 0, 0.3) 100%
     ),
-    url("/assets/media/Banner\ -\ Desktop.png");
+    url("/assets/media/hero-banner.webp");
 
   background-size: cover;
   background-position: center center;

@@ -25,7 +25,7 @@ function headerMarkup() {
         <a class="logo" href="/" aria-label="Primefield početna">
   <img
     class="logo-image"
-    src="/assets/media/logo.png"
+    src="/assets/media/Logo.png"
     alt="Primefield"
     width="1200"
     height="300"
@@ -44,7 +44,7 @@ function footerMarkup() {
     <footer class="site-footer">
       <div class="container">
         <div class="footer-top">
-          <div><a class="logo footer-logo" href="/" aria-label="Primefield početna"><img class="logo-image" src="/assets/media/logo.png" alt="Primefield" width="1200" height="300"></a><p class="muted">Video produkcija za biznise, brendove i kreatore u Beogradu.</p></div>
+          <div><a class="logo footer-logo" href="/" aria-label="Primefield početna"><img class="logo-image" src="/assets/media/Logo.png" alt="Primefield" width="1200" height="300"></a><p class="muted">Video produkcija za biznise, brendove i kreatore u Beogradu.</p></div>
           <div class="footer-links"><strong>Usluge</strong><a href="/content-produkcija/">Content produkcija</a><a href="/video-produkcija/">Video produkcija</a><!-- SKRIVENO: <a href="/podcast-produkcija/">Podcast produkcija</a> --><a href="/video-montaza/">Video montaža</a><a href="/kreativna-produkcija/">Motion i VFX</a><a href="/graficki-dizajn/">Grafički dizajn</a></div>
           <div class="footer-links"><strong>Kontakt</strong><a href="${config.instagramUrl || '#'}" target="_blank" rel="noreferrer">${config.instagramLabel || '@theprimefield'}</a><a href="/kontakt/">Zatražite ponudu</a></div>
         </div>
@@ -205,6 +205,25 @@ document.querySelectorAll('.filter').forEach((button) => {
 document.querySelectorAll('.work-video').forEach((video) => {
   video.volume = 0.5;
 });
+
+// Radovi se preuzimaju i puštaju tek kad dođu blizu ekrana, a pauziraju kad izađu,
+// da posetilac ne skida videe koje nikad ne pogleda.
+const lazyVideos = document.querySelectorAll('[data-lazy-video]');
+if ('IntersectionObserver' in window) {
+  const videoObserver = new IntersectionObserver((entries) => {
+    entries.forEach(({ target: video, isIntersecting }) => {
+      if (isIntersecting) {
+        video.preload = 'auto';
+        video.play().catch(() => {});
+      } else if (!video.paused) {
+        video.pause();
+      }
+    });
+  }, { rootMargin: '200px 0px' });
+  lazyVideos.forEach((video) => videoObserver.observe(video));
+} else {
+  lazyVideos.forEach((video) => { video.autoplay = true; video.preload = 'auto'; video.play().catch(() => {}); });
+}
 
 document.querySelectorAll('.yt-embed').forEach((box) => {
   const playButton = box.querySelector('.yt-play');

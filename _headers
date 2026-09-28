@@ -1,0 +1,10 @@
+# Netlify keš podešavanja (vercel.json se na Netlify-ju ne primenjuje).
+# Slike i videi se keširaju 30 dana: kada menjaš neki fajl, sačuvaj ga pod NOVIM imenom.
+/assets/media/*
+  Cache-Control: public, max-age=2592000
+
+/assets/css/*
+  Cache-Control: public, max-age=3600
+
+/assets/js/*
+  Cache-Control: public, max-age=3600
