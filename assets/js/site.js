@@ -9,6 +9,16 @@ function headerMarkup() {
           <a href="/">Početna</a>
           <a href="/#usluge">Usluge</a>
           <a href="/radovi/">Radovi</a>
+          <div class="nav-dropdown">
+            <button class="nav-dropdown-toggle" type="button" aria-expanded="false" aria-controls="design-submenu">Grafički dizajn<span class="nav-caret" aria-hidden="true"></span></button>
+            <div class="nav-submenu" id="design-submenu">
+              <a href="/graficki-dizajn/">Svi dizajni</a>
+              <a href="/graficki-dizajn/logo/">Logo dizajn</a>
+              <a href="/graficki-dizajn/banner/">Banner dizajn</a>
+              <a href="/graficki-dizajn/cover/">Cover dizajn</a>
+              <a href="/graficki-dizajn/thumbnail/">Thumbnail dizajn</a>
+            </div>
+          </div>
           <a href="/o-nama/">O nama</a>
           <a href="/kontakt/">Kontakt</a>
         </nav>
@@ -35,7 +45,7 @@ function footerMarkup() {
       <div class="container">
         <div class="footer-top">
           <div><a class="logo footer-logo" href="/" aria-label="Primefield početna"><img class="logo-image" src="/assets/media/logo.png" alt="Primefield" width="1200" height="300"></a><p class="muted">Video produkcija za biznise, brendove i kreatore u Beogradu.</p></div>
-          <div class="footer-links"><strong>Usluge</strong><a href="/content-produkcija/">Content produkcija</a><a href="/video-produkcija/">Video produkcija</a><!-- SKRIVENO: <a href="/podcast-produkcija/">Podcast produkcija</a> --><a href="/video-montaza/">Video montaža</a><a href="/kreativna-produkcija/">Motion i VFX</a></div>
+          <div class="footer-links"><strong>Usluge</strong><a href="/content-produkcija/">Content produkcija</a><a href="/video-produkcija/">Video produkcija</a><!-- SKRIVENO: <a href="/podcast-produkcija/">Podcast produkcija</a> --><a href="/video-montaza/">Video montaža</a><a href="/kreativna-produkcija/">Motion i VFX</a><a href="/graficki-dizajn/">Grafički dizajn</a></div>
           <div class="footer-links"><strong>Kontakt</strong><a href="${config.instagramUrl || '#'}" target="_blank" rel="noreferrer">${config.instagramLabel || '@theprimefield'}</a><a href="/kontakt/">Zatražite ponudu</a></div>
         </div>
         <div class="footer-bottom"><span>© ${year} Primefield. Sva prava zadržana.</span><a href="/politika-privatnosti.html">Politika privatnosti</a></div>
@@ -102,12 +112,76 @@ nav?.querySelectorAll('a').forEach((link) => {
 });
 
 const currentPath = location.pathname.replace(/index\.html$/, '');
-document.querySelectorAll('.nav a').forEach((link) => {
+document.querySelectorAll('.nav > a').forEach((link) => {
   const href = new URL(link.href).pathname;
   if ((href === '/' && currentPath === '/') || (href !== '/' && currentPath.startsWith(href.replace('/#usluge', '/usluge')))) {
     link.setAttribute('aria-current', 'page');
   }
 });
+
+const dropdown = document.querySelector('.nav-dropdown');
+const dropdownToggle = dropdown?.querySelector('.nav-dropdown-toggle');
+function setDropdown(open) {
+  dropdown?.classList.toggle('open', open);
+  dropdownToggle?.setAttribute('aria-expanded', String(open));
+}
+dropdownToggle?.addEventListener('click', (event) => {
+  event.stopPropagation();
+  setDropdown(!dropdown.classList.contains('open'));
+});
+document.addEventListener('click', (event) => {
+  if (dropdown && !dropdown.contains(event.target)) setDropdown(false);
+});
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && dropdown?.classList.contains('open')) {
+    setDropdown(false);
+    dropdownToggle.focus();
+  }
+});
+if (currentPath.startsWith('/graficki-dizajn/')) {
+  dropdownToggle?.classList.add('is-current');
+  dropdown?.querySelectorAll('.nav-submenu a').forEach((link) => {
+    if (new URL(link.href).pathname === currentPath) link.setAttribute('aria-current', 'page');
+  });
+}
+
+const lightboxTriggers = document.querySelectorAll('[data-lightbox]');
+if (lightboxTriggers.length) {
+  const lightbox = document.createElement('div');
+  lightbox.className = 'lightbox';
+  lightbox.hidden = true;
+  lightbox.setAttribute('role', 'dialog');
+  lightbox.setAttribute('aria-modal', 'true');
+  lightbox.innerHTML = '<button class="lightbox-close" type="button" aria-label="Zatvori">×</button><img class="lightbox-image" alt="">';
+  document.body.appendChild(lightbox);
+  const lightboxImage = lightbox.querySelector('.lightbox-image');
+  const closeButton = lightbox.querySelector('.lightbox-close');
+  let lastTrigger = null;
+
+  const closeLightbox = () => {
+    lightbox.hidden = true;
+    document.body.classList.remove('menu-open');
+    lastTrigger?.focus();
+  };
+
+  lightboxTriggers.forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const img = trigger.querySelector('img');
+      lightboxImage.src = trigger.dataset.lightbox || img.src;
+      lightboxImage.alt = img?.alt || '';
+      lastTrigger = trigger;
+      lightbox.hidden = false;
+      document.body.classList.add('menu-open');
+      closeButton.focus();
+    });
+  });
+  lightbox.addEventListener('click', (event) => {
+    if (event.target !== lightboxImage) closeLightbox();
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !lightbox.hidden) closeLightbox();
+  });
+}
 
 document.querySelectorAll('.faq-button').forEach((button) => {
   button.addEventListener('click', () => {

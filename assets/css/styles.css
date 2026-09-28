@@ -579,7 +579,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .hero .eyebrow {
     display: none;
   }
-}‚
+}
 /* ===== PRIMEFIELD LOGO ===== */
 
 .logo-image {
@@ -646,4 +646,170 @@ button, a { -webkit-tap-highlight-color: transparent; }
     height: 34px !important;
     max-width: 200px;
   }
+}
+
+/* ===== GRAFIČKI DIZAJN — PADAJUĆI MENI ===== */
+
+.nav-dropdown { position: relative; }
+.nav-dropdown-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  padding: 0;
+  border: none;
+  background: none;
+  color: #c7c7c2;
+  font-size: .92rem;
+  cursor: pointer;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, .7);
+  transition: color .2s ease;
+}
+.nav-dropdown-toggle:hover,
+.nav-dropdown-toggle.is-current,
+.nav-dropdown.open .nav-dropdown-toggle { color: #fff; }
+.nav-caret {
+  width: 6px;
+  height: 6px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform .2s ease;
+}
+.nav-dropdown.open .nav-caret { transform: translateY(1px) rotate(-135deg); }
+
+.nav-submenu {
+  position: absolute;
+  top: calc(100% + 14px);
+  left: -1rem;
+  min-width: 210px;
+  display: grid;
+  padding: .5rem;
+  border: 1px solid var(--line);
+  background: rgba(8, 8, 8, .92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity .2s ease, transform .2s ease, visibility .2s;
+}
+/* nevidljivi most da hover ne pukne između dugmeta i panela */
+.nav-submenu::before { content: ""; position: absolute; left: 0; right: 0; top: -15px; height: 15px; }
+.site-header .nav-submenu a {
+  padding: .65rem .75rem;
+  color: #c7c7c2;
+  font-size: .9rem;
+  text-shadow: none;
+  transition: color .2s ease, background-color .2s ease;
+}
+.site-header .nav-submenu a:hover,
+.site-header .nav-submenu a[aria-current="page"] { color: #fff; background: rgba(255, 255, 255, .06); }
+.nav-dropdown.open .nav-submenu { opacity: 1; visibility: visible; transform: none; }
+
+@media (min-width: 861px) {
+  .nav-dropdown:hover .nav-submenu,
+  .nav-dropdown:focus-within .nav-submenu { opacity: 1; visibility: visible; transform: none; }
+  .nav-dropdown:hover .nav-caret { transform: translateY(1px) rotate(-135deg); }
+}
+
+@media (max-width: 860px) {
+  .nav-dropdown-toggle {
+    width: 100%;
+    justify-content: space-between;
+    padding: 1.2rem 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 1.25rem;
+    text-align: left;
+  }
+  .nav-caret { width: 9px; height: 9px; margin-right: .3rem; }
+  .nav-submenu {
+    position: static;
+    display: none;
+    min-width: 0;
+    padding: .25rem 0 .5rem 1rem;
+    border: none;
+    border-bottom: 1px solid var(--line);
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+  .nav-submenu::before { content: none; }
+  .nav-dropdown.open .nav-submenu { display: grid; }
+  .site-header .nav-submenu a { padding: .8rem 0; border-bottom: none; font-size: 1.05rem; }
+  .site-header .nav-submenu a:hover,
+  .site-header .nav-submenu a[aria-current="page"] { background: none; }
+}
+
+/* ===== GRAFIČKI DIZAJN — STRANICE ===== */
+
+a.filter { display: inline-block; }
+
+.work-card.full { grid-column: 1 / -1; }
+.work-card.center { grid-column: 4 / span 6; }
+
+.design-visual {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 1px solid var(--line);
+  background: #111;
+  cursor: zoom-in;
+  overflow: hidden;
+}
+.design-visual img {
+  width: 100%;
+  height: auto;
+  transition: transform .5s ease, opacity .3s ease;
+}
+.design-visual:hover img { transform: scale(1.02); }
+/* YouTube banner: na kartici samo pojas vidljiv na desktopu, ceo banner u lightboxu */
+.design-visual.yt-banner img { aspect-ratio: 2560 / 620; object-fit: cover; object-position: center; }
+.design-visual:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+
+.category-card .work-visual img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+.category-card:hover .work-visual img { transform: scale(1.03); }
+.category-card .work-info .arrow { flex-shrink: 0; }
+.category-card:hover .arrow { transform: translate(4px, -4px); }
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: grid;
+  place-items: center;
+  padding: clamp(1rem, 4vw, 3rem);
+  background: rgba(0, 0, 0, .92);
+  cursor: zoom-out;
+}
+.lightbox[hidden] { display: none; }
+.lightbox-image {
+  max-width: 100%;
+  max-height: calc(100svh - 2 * clamp(1rem, 4vw, 3rem));
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  cursor: default;
+}
+.lightbox-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .1);
+  color: #fff;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color .2s ease;
+}
+.lightbox-close:hover { background: rgba(255, 255, 255, .22); }
+
+@media (max-width: 860px) {
+  .work-card.full, .work-card.center { grid-column: 1 / -1; }
 }
